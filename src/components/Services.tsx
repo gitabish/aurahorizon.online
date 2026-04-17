@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Code2, Layers, Palette, Rocket, Sparkles, Zap } from "lucide-react";
+import { Code2, Layers, Palette, Rocket, Zap } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 interface Service {
@@ -13,38 +13,32 @@ const services: Service[] = [
   {
     icon: Code2,
     title: "Web Development",
-    description: "Production-grade React, Next.js & TypeScript builds engineered for scale and speed.",
+    description: "Powerful, fast-loading websites built with cutting-edge technologies.",
     accent: "from-primary to-secondary",
   },
   {
     icon: Layers,
-    title: "3D & Immersive",
-    description: "WebGL, Three.js and shader-driven experiences that turn pages into worlds.",
+    title: "3D & Immersive Experiences",
+    description: "Captivating websites featuring subtle 3D elements that create unforgettable first impressions.",
     accent: "from-secondary to-accent",
   },
   {
     icon: Palette,
     title: "Brand & UI Design",
-    description: "Identity systems, design tokens and interfaces with personality and craft.",
+    description: "Elegant, trustworthy brand identities and interfaces that instantly build confidence.",
     accent: "from-accent to-primary",
   },
   {
     icon: Zap,
     title: "Motion Design",
-    description: "Choreographed micro-interactions with Framer Motion and GSAP that feel alive.",
+    description: "Fluid animations and delightful micro-interactions that bring your website to life.",
     accent: "from-primary to-accent",
   },
   {
     icon: Rocket,
-    title: "Performance",
-    description: "Core Web Vitals obsessed. Sub-second loads, perfect Lighthouse scores.",
+    title: "Performance Optimization",
+    description: "Blazing-fast websites engineered for perfect scores and exceptional user experience.",
     accent: "from-secondary to-primary",
-  },
-  {
-    icon: Sparkles,
-    title: "AI Integration",
-    description: "Smart features powered by LLMs, embedded into your product experience.",
-    accent: "from-accent to-secondary",
   },
 ];
 
@@ -63,11 +57,8 @@ const Services = () => {
             What we do
           </span>
           <h2 className="mt-6 font-display text-4xl font-bold leading-tight sm:text-6xl">
-            Services beyond <span className="text-gradient">the horizon</span>
+            Services Beyond <span className="text-gradient">the Horizon</span>
           </h2>
-          <p className="mt-6 text-lg text-muted-foreground">
-            A full-stack studio bringing strategy, design and engineering under one orbit.
-          </p>
         </motion.div>
 
         <div className="mt-20 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

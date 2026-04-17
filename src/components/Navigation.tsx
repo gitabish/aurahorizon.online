@@ -1,11 +1,11 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
 import { Menu } from "lucide-react";
 
 const links = [
   { label: "Services", href: "#services" },
   { label: "Work", href: "#projects" },
   { label: "Process", href: "#process" },
+  { label: "Pricing", href: "#pricing" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -38,7 +38,7 @@ const Navigation = () => {
               <div className="absolute inset-2 rounded-full bg-gradient-aurora" />
             </motion.div>
             <span className="font-display text-lg font-semibold tracking-tight">
-              Nova<span className="text-primary">.</span>Horizon
+              Aura<span className="text-primary">.</span>horizon
             </span>
           </a>
 
@@ -64,7 +64,7 @@ const Navigation = () => {
             href="#contact"
             className="hidden rounded-full border border-border bg-card/50 px-5 py-2 text-sm font-medium text-foreground transition-all hover:border-primary/50 hover:shadow-glow-soft md:inline-flex"
           >
-            Let's talk
+            Get Your Website
           </a>
 
           <button className="md:hidden text-foreground" aria-label="Open menu">

@@ -13,15 +13,12 @@ const Hero = () => {
 
   return (
     <section ref={ref} className="relative min-h-screen overflow-hidden">
-      {/* 3D scene */}
       <motion.div style={{ y, opacity, scale }} className="absolute inset-0 z-0">
         <HeroScene className="absolute inset-0" />
       </motion.div>
 
-      {/* Grid backdrop */}
       <div className="absolute inset-0 z-0 grid-bg opacity-50" aria-hidden />
 
-      {/* Foreground content */}
       <motion.div
         style={{ opacity }}
         className="relative z-10 container flex min-h-screen flex-col items-center justify-center text-center pt-20"
@@ -37,7 +34,7 @@ const Hero = () => {
         </motion.div>
 
         <motion.h1
-          className="font-display text-5xl font-bold leading-[1.05] tracking-tight sm:text-7xl md:text-8xl lg:text-[8.5rem]"
+          className="font-display text-4xl font-bold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl lg:text-[5.5rem] max-w-5xl"
           initial="hidden"
           animate="visible"
           variants={{
@@ -45,16 +42,16 @@ const Hero = () => {
             visible: { transition: { staggerChildren: 0.08, delayChildren: 0.2 } },
           }}
         >
-          {["Nova", "Horizon"].map((word, i) => (
+          {["Professional Websites That", "Turn Visitors Into", "Loyal Customers"].map((line, i) => (
             <motion.span
-              key={word}
+              key={line}
               className="block"
               variants={{
                 hidden: { opacity: 0, y: 60, rotateX: -45 },
                 visible: { opacity: 1, y: 0, rotateX: 0, transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] } },
               }}
             >
-              <span className={i === 1 ? "text-gradient" : "text-gradient-soft"}>{word}</span>
+              <span className={i === 1 ? "text-gradient" : "text-gradient-soft"}>{line}</span>
             </motion.span>
           ))}
         </motion.h1>
@@ -63,10 +60,9 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-8 max-w-xl text-lg text-muted-foreground sm:text-xl"
+          className="mt-8 max-w-2xl text-base text-muted-foreground sm:text-lg"
         >
-          A web development agency building immersive, high-performance digital
-          products powered by motion, 3D, and obsession with detail.
+          We design high-converting, mobile-first websites for dentists, doctors, medical practices, cafes, restaurants, motorbike garages, auto service centers, retail shops, vendors and service businesses worldwide.
         </motion.p>
 
         <motion.div
@@ -75,16 +71,15 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.85, ease: [0.22, 1, 0.36, 1] }}
           className="mt-10 flex flex-col items-center gap-4 sm:flex-row"
         >
-          <MagneticButton href="#projects" variant="primary">
-            View our work <ArrowRight className="h-4 w-4" />
+          <MagneticButton href="#contact" variant="primary">
+            Get Your Website <ArrowRight className="h-4 w-4" />
           </MagneticButton>
-          <MagneticButton href="#contact" variant="ghost">
-            Start a project
+          <MagneticButton href="#projects" variant="ghost">
+            Explore Our Demo Work
           </MagneticButton>
         </motion.div>
       </motion.div>
 
-      {/* Scroll cue */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
