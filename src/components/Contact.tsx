@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import MagneticButton from "./MagneticButton";
-import { Mail, MapPin, ArrowRight } from "lucide-react";
+import { Mail, Phone, ArrowRight } from "lucide-react";
 
 const Contact = () => {
   return (
@@ -13,7 +13,6 @@ const Contact = () => {
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           className="relative overflow-hidden rounded-[2.5rem] glass p-10 sm:p-16 lg:p-24 noise"
         >
-          {/* Animated background glow */}
           <motion.div
             animate={{
               scale: [1, 1.15, 1],
@@ -37,27 +36,27 @@ const Contact = () => {
               <span className="text-gradient">on the horizon?</span>
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-lg text-muted-foreground">
-              Tell us about your project. We reply within 24 hours and only take on a handful of partners each quarter.
+              Ready to elevate your business online? Tell us about your project. We respond within 24 hours and carefully select only a few partners each quarter.
             </p>
 
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-              <MagneticButton href="mailto:hello@novahorizon.studio" variant="primary">
-                Start a project <ArrowRight className="h-4 w-4" />
+              <MagneticButton href="mailto:helloaurahorizon@gmail.com" variant="primary">
+                Get Your Website <ArrowRight className="h-4 w-4" />
               </MagneticButton>
               <MagneticButton href="#projects" variant="ghost">
-                See more work
+                See Our Demo Work
               </MagneticButton>
             </div>
 
             <div className="mt-16 flex flex-col items-center justify-center gap-6 text-sm text-muted-foreground sm:flex-row sm:gap-12">
-              <a href="mailto:hello@novahorizon.studio" className="inline-flex items-center gap-2 hover:text-foreground transition-colors">
+              <a href="mailto:helloaurahorizon@gmail.com" className="inline-flex items-center gap-2 hover:text-foreground transition-colors">
                 <Mail className="h-4 w-4 text-primary" />
-                hello@novahorizon.studio
+                helloaurahorizon@gmail.com
               </a>
-              <span className="inline-flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-secondary" />
-                Remote · Worldwide
-              </span>
+              <a href="tel:+919342735182" className="inline-flex items-center gap-2 hover:text-foreground transition-colors">
+                <Phone className="h-4 w-4 text-secondary" />
+                +91 9342735182
+              </a>
             </div>
           </div>
         </motion.div>
