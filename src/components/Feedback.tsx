@@ -22,8 +22,15 @@ const Feedback = () => {
       return;
     }
     setSubmitting(true);
+    const { name, email, message } = result.data;
+    const subject = encodeURIComponent(`New feedback from ${name}`);
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
+    );
+    // Open user's email client to send the feedback to Aurahorizon
+    window.location.href = `mailto:helloaurahorizon@gmail.com?subject=${subject}&body=${body}`;
     setTimeout(() => {
-      toast.success("Thank you! Your feedback has been received.");
+      toast.success("Thank you! Your email client has opened to send your feedback.");
       setForm({ name: "", email: "", message: "" });
       setSubmitting(false);
     }, 600);

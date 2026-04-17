@@ -1,5 +1,5 @@
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useRef, type MouseEvent } from "react";
+import { motion, useMotionValue, useSpring, useTransform, useAnimationFrame } from "framer-motion";
+import { useRef, useState, type MouseEvent } from "react";
 import cafeImg from "@/assets/industry-cafe.jpg";
 import motorbikeImg from "@/assets/industry-motorbike.jpg";
 import autoImg from "@/assets/industry-auto.jpg";
@@ -18,7 +18,7 @@ const industries = [
   { name: "Beauty Salon & Spa", image: salonImg },
 ];
 
-const IndustryCard = ({ name, image, index }: { name: string; image: string; index: number }) => {
+const IndustryCard = ({ name, image }: { name: string; image: string }) => {
   const ref = useRef<HTMLDivElement>(null);
   const rx = useMotionValue(0);
   const ry = useMotionValue(0);
@@ -46,12 +46,8 @@ const IndustryCard = ({ name, image, index }: { name: string; image: string; ind
       ref={ref}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.7, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
       style={{ rotateX, rotateY, transformPerspective: 1000 }}
-      className="group relative w-[280px] shrink-0 sm:w-[320px] snap-center"
+      className="group relative w-[280px] shrink-0 sm:w-[320px]"
     >
       <div className="relative overflow-hidden rounded-3xl glass shadow-elegant">
         <div className="relative aspect-[3/4] overflow-hidden">
@@ -78,6 +74,21 @@ const IndustryCard = ({ name, image, index }: { name: string; image: string; ind
 };
 
 const Industries = () => {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const offset = useRef(0);
+  const [paused, setPaused] = useState(false);
+
+  useAnimationFrame((_, delta) => {
+    if (paused || !trackRef.current) return;
+    const speed = 40; // px/sec
+    offset.current -= (speed * delta) / 1000;
+    const halfWidth = trackRef.current.scrollWidth / 2;
+    if (-offset.current >= halfWidth) {
+      offset.current += halfWidth;
+    }
+    trackRef.current.style.transform = `translate3d(${offset.current}px, 0, 0)`;
+  });
+
   return (
     <section id="projects" className="relative py-32 overflow-hidden">
       <div className="container">
@@ -102,12 +113,22 @@ const Industries = () => {
         </motion.div>
       </div>
 
-      <div className="mt-16 overflow-x-auto pb-8 scroll-smooth snap-x snap-mandatory">
-        <div className="flex gap-6 px-6 sm:px-12 lg:px-20" style={{ width: "max-content" }}>
-          {industries.map((ind, i) => (
-            <IndustryCard key={ind.name} name={ind.name} image={ind.image} index={i} />
+      <div
+        className="relative mt-16 overflow-hidden pb-8"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
+        <div
+          ref={trackRef}
+          className="flex gap-6 will-change-transform"
+          style={{ width: "max-content" }}
+        >
+          {[...industries, ...industries].map((ind, i) => (
+            <IndustryCard key={`${ind.name}-${i}`} name={ind.name} image={ind.image} />
           ))}
         </div>
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-background to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-background to-transparent" />
       </div>
     </section>
   );
