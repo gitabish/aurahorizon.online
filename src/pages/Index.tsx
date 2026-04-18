@@ -13,21 +13,25 @@ import Pricing from "@/components/Pricing";
 import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import Feedback from "@/components/Feedback";
+import Newsletter from "@/components/Newsletter";
 import CTA from "@/components/CTA";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import ScrollToTop from "@/components/ScrollToTop";
 import CustomCursor from "@/components/CustomCursor";
 import Preloader from "@/components/Preloader";
 import SmoothScroll from "@/components/SmoothScroll";
 import ScrollProgress from "@/components/ScrollProgress";
 import Reveal from "@/components/Reveal";
+import FloatingBackground from "@/components/FloatingBackground";
 
 const Index = () => {
   return (
     <>
       <Preloader />
       <ScrollProgress />
+      <FloatingBackground />
       <main id="top" className="relative min-h-screen overflow-x-hidden">
         <div className="noise-overlay" />
         <CustomCursor />
@@ -45,11 +49,13 @@ const Index = () => {
           <Reveal width="100%"><Testimonials /></Reveal>
           <Reveal width="100%"><FAQ /></Reveal>
           <Reveal width="100%"><Feedback /></Reveal>
+          <Reveal width="100%"><Newsletter /></Reveal>
           <Reveal width="100%"><CTA /></Reveal>
           <Reveal width="100%"><Contact /></Reveal>
           <Footer />
         </SmoothScroll>
         <WhatsAppButton />
+        <ScrollToTop />
       </main>
     </>
   );
