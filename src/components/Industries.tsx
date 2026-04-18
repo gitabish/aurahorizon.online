@@ -1,134 +1,112 @@
-import { motion, useMotionValue, useSpring, useTransform, useAnimationFrame } from "framer-motion";
-import { useRef, useState, type MouseEvent } from "react";
-import cafeImg from "@/assets/industry-cafe.jpg";
-import motorbikeImg from "@/assets/industry-motorbike.jpg";
-import autoImg from "@/assets/industry-auto.jpg";
-import dentalImg from "@/assets/industry-dental.jpg";
-import medicalImg from "@/assets/industry-medical.jpg";
-import retailImg from "@/assets/industry-retail.jpg";
-import salonImg from "@/assets/industry-salon.jpg";
+"use client";
+
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 const industries = [
-  { name: "Cafe & Restaurant", image: cafeImg },
-  { name: "Motorbike Garage", image: motorbikeImg },
-  { name: "Auto Service Center", image: autoImg },
-  { name: "Dental Clinic", image: dentalImg },
-  { name: "Medical Practice", image: medicalImg },
-  { name: "Retail Shop & Vendor", image: retailImg },
-  { name: "Beauty Salon & Spa", image: salonImg },
+  {
+    name: "Cafe & Restaurant",
+    image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=800",
+    desc: "Smiling female barista holding a fresh menu, welcoming guests to a warm, artisanal space."
+  },
+  {
+    name: "Motorbike Garage",
+    image: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&q=80&w=800",
+    desc: "Friendly mechanic with a cap, holding tools, smiling confidently in a high-end workshop."
+  },
+  {
+    name: "Auto Service Center",
+    image: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&q=80&w=800",
+    desc: "Confident mechanic holding a wrench, standing proudly in front of a premium vehicle."
+  },
+  {
+    name: "Dental Clinic",
+    image: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=800",
+    desc: "Smiling dentist and assistant providing a comforting, professional environment for patients."
+  },
+  {
+    name: "Medical Practice",
+    image: "https://images.unsplash.com/photo-1559839734-2b71f1e3c770?auto=format&fit=crop&q=80&w=800",
+    desc: "Confident doctor with a nurse, representing trust and excellence in modern healthcare."
+  },
+  {
+    name: "Retail Shop & Vendor",
+    image: "https://images.unsplash.com/photo-1534452203293-494d7ddbf7e0?auto=format&fit=crop&q=80&w=800",
+    desc: "Friendly shop owner holding a signature product, showcasing the heart of local commerce."
+  },
+  {
+    name: "Beauty Salon & Spa",
+    image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=800",
+    desc: "Confident beautician in an elegant salon, dedicated to luxury and personal care."
+  }
 ];
 
-const IndustryCard = ({ name, image }: { name: string; image: string }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const rx = useMotionValue(0);
-  const ry = useMotionValue(0);
-  const rxs = useSpring(rx, { stiffness: 200, damping: 20 });
-  const rys = useSpring(ry, { stiffness: 200, damping: 20 });
-  const rotateX = useTransform(rxs, (v) => `${v}deg`);
-  const rotateY = useTransform(rys, (v) => `${v}deg`);
-
-  const handleMove = (e: MouseEvent) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const px = (e.clientX - rect.left) / rect.width - 0.5;
-    const py = (e.clientY - rect.top) / rect.height - 0.5;
-    ry.set(px * 12);
-    rx.set(-py * 12);
-  };
-
-  const handleLeave = () => {
-    rx.set(0);
-    ry.set(0);
-  };
-
+const IndustryCard = ({ industry, index }: { industry: typeof industries[0]; index: number }) => {
   return (
     <motion.div
-      ref={ref}
-      onMouseMove={handleMove}
-      onMouseLeave={handleLeave}
-      style={{ rotateX, rotateY, transformPerspective: 1000 }}
-      className="group relative w-[280px] shrink-0 sm:w-[320px]"
+      initial={{ opacity: 0, scale: 0.9 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, delay: index * 0.1 }}
+      className="relative min-w-[350px] md:min-w-[450px] h-[600px] rounded-[2.5rem] overflow-hidden group"
     >
-      <div className="relative overflow-hidden rounded-3xl glass shadow-elegant">
-        <div className="relative aspect-[3/4] overflow-hidden">
-          <img
-            src={image}
-            alt={`${name} professional`}
-            loading="lazy"
-            width={768}
-            height={960}
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
-          <div className="absolute inset-0 opacity-0 bg-gradient-to-br from-primary/20 via-transparent to-secondary/20 transition-opacity duration-500 group-hover:opacity-100" />
-        </div>
-        <div className="relative p-6">
-          <h3 className="font-display text-xl font-semibold text-foreground sm:text-2xl">
-            {name}
-          </h3>
-          <div className="mt-3 h-px w-12 bg-gradient-aurora transition-all duration-500 group-hover:w-24" />
-        </div>
+      <img
+        src={industry.image}
+        alt={industry.name}
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-80" />
+      
+      <div className="absolute inset-0 p-10 flex flex-col justify-end">
+        <h3 className="font-display text-3xl font-bold mb-4 text-white">{industry.name}</h3>
+        <p className="text-white/70 text-lg leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+          {industry.desc}
+        </p>
+        <div className="mt-6 w-12 h-1 bg-primary rounded-full transition-all duration-500 group-hover:w-24" />
       </div>
     </motion.div>
   );
 };
 
 const Industries = () => {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const offset = useRef(0);
-  const [paused, setPaused] = useState(false);
-
-  useAnimationFrame((_, delta) => {
-    if (paused || !trackRef.current) return;
-    const speed = 40; // px/sec
-    offset.current -= (speed * delta) / 1000;
-    const halfWidth = trackRef.current.scrollWidth / 2;
-    if (-offset.current >= halfWidth) {
-      offset.current += halfWidth;
-    }
-    trackRef.current.style.transform = `translate3d(${offset.current}px, 0, 0)`;
+  const targetRef = useRef<HTMLDivElement>(null);
+  const { scrollXProgress } = useScroll({
+    container: targetRef,
   });
 
   return (
     <section id="projects" className="relative py-32 overflow-hidden">
-      <div className="container">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end"
-        >
+      <div className="container mb-16">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
           <div className="max-w-2xl">
-            <span className="inline-block rounded-full border border-border bg-card/50 px-3 py-1 text-xs uppercase tracking-[0.25em] text-muted-foreground">
-              Selected work
-            </span>
-            <h2 className="mt-6 font-display text-4xl font-bold leading-tight sm:text-6xl">
+            <span className="text-primary font-display text-sm uppercase tracking-[0.3em] mb-6 block">Our Reach</span>
+            <h2 className="font-display text-4xl md:text-6xl font-bold leading-tight">
               Industries <span className="text-gradient">We Serve</span>
             </h2>
           </div>
-          <p className="max-w-md text-muted-foreground">
-            From local favorites to growing enterprises, we create tailored digital experiences for businesses across the globe.
+          <p className="text-muted-foreground text-lg max-w-md">
+            Tailored digital solutions for businesses that value quality, trust, and exceptional customer experiences.
           </p>
-        </motion.div>
+        </div>
       </div>
 
-      <div
-        className="relative mt-16 overflow-hidden pb-8"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
+      <div 
+        ref={targetRef}
+        className="flex gap-8 overflow-x-auto px-[5%] pb-12 no-scrollbar cursor-grab active:cursor-grabbing"
       >
-        <div
-          ref={trackRef}
-          className="flex gap-6 will-change-transform"
-          style={{ width: "max-content" }}
-        >
-          {[...industries, ...industries].map((ind, i) => (
-            <IndustryCard key={`${ind.name}-${i}`} name={ind.name} image={ind.image} />
-          ))}
+        {industries.map((industry, i) => (
+          <IndustryCard key={industry.name} industry={industry} index={i} />
+        ))}
+      </div>
+
+      {/* Custom Scroll Progress */}
+      <div className="container mt-8">
+        <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+          <motion.div 
+            className="h-full bg-primary"
+            style={{ scaleX: scrollXProgress, transformOrigin: "left" }}
+          />
         </div>
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-background to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-background to-transparent" />
       </div>
     </section>
   );

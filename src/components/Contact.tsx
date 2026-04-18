@@ -1,62 +1,77 @@
+"use client";
+
 import { motion } from "framer-motion";
 import MagneticButton from "./MagneticButton";
-import { Mail, Phone, ArrowRight } from "lucide-react";
+import { Mail, Phone, ArrowRight, Globe } from "lucide-react";
 
 const Contact = () => {
   return (
-    <section id="contact" className="relative py-32">
+    <section id="contact" className="relative py-32 lg:py-48">
       <div className="container">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 60 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="relative overflow-hidden rounded-[2.5rem] glass p-10 sm:p-16 lg:p-24 noise"
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          className="relative rounded-[4rem] glass-premium p-12 md:p-24 overflow-hidden"
         >
-          <motion.div
-            animate={{
-              scale: [1, 1.15, 1],
-              opacity: [0.3, 0.55, 0.3],
-            }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -top-1/2 left-1/2 h-[700px] w-[700px] -translate-x-1/2 rounded-full bg-gradient-aurora blur-3xl"
-          />
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-            className="absolute -bottom-40 -right-40 h-96 w-96 rounded-full border border-primary/20"
-          />
+          {/* Background Glows */}
+          <div className="absolute -top-1/2 -right-1/4 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[120px] animate-pulse" />
+          <div className="absolute -bottom-1/2 -left-1/4 w-[800px] h-[800px] bg-secondary/10 rounded-full blur-[120px] animate-pulse" />
 
-          <div className="relative text-center">
-            <span className="inline-block rounded-full border border-border bg-card/50 px-3 py-1 text-xs uppercase tracking-[0.25em] text-muted-foreground">
-              Let's build
-            </span>
-            <h2 className="mt-6 font-display text-4xl font-bold leading-[1.05] sm:text-6xl lg:text-7xl">
-              Have a vision <br className="hidden sm:block" />
-              <span className="text-gradient">on the horizon?</span>
-            </h2>
-            <p className="mx-auto mt-6 max-w-xl text-lg text-muted-foreground">
-              Ready to elevate your business online? Tell us about your project. We respond within 24 hours and carefully select only a few partners each quarter.
-            </p>
+          <div className="relative z-10 grid lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <span className="text-primary font-display text-sm uppercase tracking-[0.3em] mb-6 block">Get in Touch</span>
+              <h2 className="font-display text-5xl md:text-7xl font-bold leading-tight mb-8">
+                Have a vision <br />
+                <span className="text-gradient">on the horizon?</span>
+              </h2>
+              <p className="text-xl text-muted-foreground leading-relaxed mb-12 max-w-md">
+                We're currently accepting new projects for the next quarter. Let's build something extraordinary together.
+              </p>
 
-            <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-              <MagneticButton href="mailto:helloaurahorizon@gmail.com" variant="primary">
-                Get Your Website <ArrowRight className="h-4 w-4" />
-              </MagneticButton>
-              <MagneticButton href="#projects" variant="ghost">
-                See Our Demo Work
-              </MagneticButton>
+              <div className="space-y-6">
+                <a 
+                  href="mailto:helloaurahorizon@gmail.com" 
+                  className="flex items-center gap-4 text-lg hover:text-primary transition-colors group"
+                >
+                  <div className="w-12 h-12 rounded-full glass-premium flex items-center justify-center group-hover:bg-primary/20">
+                    <Mail className="w-5 h-5" />
+                  </div>
+                  helloaurahorizon@gmail.com
+                </a>
+                <a 
+                  href="tel:+919342735182" 
+                  className="flex items-center gap-4 text-lg hover:text-secondary transition-colors group"
+                >
+                  <div className="w-12 h-12 rounded-full glass-premium flex items-center justify-center group-hover:bg-secondary/20">
+                    <Phone className="w-5 h-5" />
+                  </div>
+                  +91 9342735182
+                </a>
+                <div className="flex items-center gap-4 text-lg text-muted-foreground">
+                  <div className="w-12 h-12 rounded-full glass-premium flex items-center justify-center">
+                    <Globe className="w-5 h-5" />
+                  </div>
+                  Serving Clients Worldwide
+                </div>
+              </div>
             </div>
 
-            <div className="mt-16 flex flex-col items-center justify-center gap-6 text-sm text-muted-foreground sm:flex-row sm:gap-12">
-              <a href="mailto:helloaurahorizon@gmail.com" className="inline-flex items-center gap-2 hover:text-foreground transition-colors">
-                <Mail className="h-4 w-4 text-primary" />
-                helloaurahorizon@gmail.com
-              </a>
-              <a href="tel:+919342735182" className="inline-flex items-center gap-2 hover:text-foreground transition-colors">
-                <Phone className="h-4 w-4 text-secondary" />
-                +91 9342735182
-              </a>
+            <div className="flex flex-col items-center lg:items-end gap-8">
+              <div className="text-center lg:text-right">
+                <div className="text-sm uppercase tracking-widest text-muted-foreground mb-4">Ready to start?</div>
+                <MagneticButton href="mailto:helloaurahorizon@gmail.com" className="h-20 px-16 text-xl rounded-[2rem]">
+                  Book a Call <ArrowRight className="ml-3 w-6 h-6" />
+                </MagneticButton>
+              </div>
+              
+              <div className="p-8 rounded-3xl glass-premium max-w-xs text-center lg:text-right">
+                <p className="text-sm italic text-muted-foreground">
+                  "Aurahorizon transformed our clinic's digital presence. We saw a 40% increase in bookings within the first month."
+                </p>
+                <div className="mt-4 font-display font-bold">— Dr. Sarah Chen</div>
+              </div>
             </div>
           </div>
         </motion.div>

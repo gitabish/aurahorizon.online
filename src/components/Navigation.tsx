@@ -1,76 +1,108 @@
+"use client";
+
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Menu } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { useState, useEffect } from "react";
 
 const links = [
+  { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
   { label: "Work", href: "#projects" },
-  { label: "Process", href: "#process" },
   { label: "Pricing", href: "#pricing" },
   { label: "Contact", href: "#contact" },
 ];
 
 const Navigation = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const { scrollY } = useScroll();
-  const blur = useTransform(scrollY, [0, 200], [0, 16]);
-  const bg = useTransform(scrollY, [0, 200], ["hsla(240,30%,4%,0)", "hsla(240,30%,4%,0.6)"]);
+  
+  const backgroundColor = useTransform(
+    scrollY,
+    [0, 100],
+    ["rgba(10, 10, 12, 0)", "rgba(10, 10, 12, 0.8)"]
+  );
+  
+  const backdropBlur = useTransform(
+    scrollY,
+    [0, 100],
+    ["blur(0px)", "blur(20px)"]
+  );
+
+  const borderOpacity = useTransform(
+    scrollY,
+    [0, 100],
+    ["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.1)"]
+  );
 
   return (
     <motion.header
-      initial={{ y: -40, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      className="fixed top-0 left-0 right-0 z-50"
+      style={{ backgroundColor, backdropFilter: backdropBlur, borderBottom: `1px solid ${borderOpacity}` }}
+      className="fixed top-0 left-0 right-0 z-[100] transition-all duration-300"
     >
-      <motion.div
-        style={{ backdropFilter: useTransform(blur, (v) => `blur(${v}px)`), backgroundColor: bg }}
-        className="border-b border-border/40"
-      >
-        <nav className="container flex h-16 items-center justify-between">
-          <a href="#top" className="group flex items-center gap-2.5">
-            <motion.div
-              whileHover={{ rotate: 180 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="relative h-7 w-7"
-            >
-              <div className="absolute inset-0 rounded-full bg-gradient-aurora blur-md opacity-70" />
-              <div className="relative h-full w-full rounded-full bg-gradient-aurora" />
-              <div className="absolute inset-1 rounded-full bg-background" />
-              <div className="absolute inset-2 rounded-full bg-gradient-aurora" />
-            </motion.div>
-            <span className="font-display text-lg font-semibold tracking-tight">
-              Aura<span className="text-primary">.</span>horizon
-            </span>
-          </a>
+      <nav className="container h-20 flex items-center justify-between">
+        <a href="#top" className="flex items-center gap-3 group">
+          <div className="relative w-10 h-10">
+            <div className="absolute inset-0 bg-gradient-aurora rounded-xl blur-md opacity-50 group-hover:opacity-100 transition-opacity" />
+            <div className="relative w-full h-full bg-background border border-white/10 rounded-xl flex items-center justify-center overflow-hidden">
+              <div className="w-4 h-4 bg-primary rounded-full animate-pulse" />
+            </div>
+          </div>
+          <span className="font-display text-xl font-bold tracking-tight">
+            Aura<span className="text-primary">horizon</span>
+          </span>
+        </a>
 
-          <ul className="hidden items-center gap-1 md:flex">
-            {links.map((link, i) => (
-              <motion.li
-                key={link.href}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 + i * 0.08, duration: 0.5 }}
+        {/* Desktop Nav */}
+        <ul className="hidden lg:flex items-center gap-8">
+          {links.map((link) => (
+            <li key={link.href}>
+              <a 
+                href={link.href}
+                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors uppercase tracking-widest"
               >
-                <a
-                  href={link.href}
-                  className="relative rounded-full px-4 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {link.label}
-                </a>
-              </motion.li>
-            ))}
-          </ul>
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
 
-          <a
+        <div className="hidden lg:block">
+          <a 
             href="#contact"
-            className="hidden rounded-full border border-border bg-card/50 px-5 py-2 text-sm font-medium text-foreground transition-all hover:border-primary/50 hover:shadow-glow-soft md:inline-flex"
+            className="px-6 py-2.5 rounded-full glass-premium text-sm font-bold hover:bg-primary hover:text-background transition-all duration-300"
           >
-            Get Your Website
+            Get Started
           </a>
+        </div>
 
-          <button className="md:hidden text-foreground" aria-label="Open menu">
-            <Menu className="h-6 w-6" />
-          </button>
-        </nav>
+        {/* Mobile Toggle */}
+        <button 
+          className="lg:hidden w-10 h-10 flex items-center justify-center text-foreground"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {isOpen ? <X /> : <Menu />}
+        </button>
+      </nav>
+
+      {/* Mobile Menu */}
+      <motion.div
+        initial={false}
+        animate={isOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+        className={`lg:hidden absolute top-20 left-0 right-0 glass-premium p-8 ${isOpen ? "block" : "hidden"}`}
+      >
+        <ul className="space-y-6 text-center">
+          {links.map((link) => (
+            <li key={link.href}>
+              <a 
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                className="text-2xl font-display font-bold"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
       </motion.div>
     </motion.header>
   );

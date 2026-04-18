@@ -1,92 +1,130 @@
-import { motion } from "framer-motion";
+"use client";
+
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Code2, Layers, Palette, Rocket, Zap } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { useRef } from "react";
 
 interface Service {
   icon: LucideIcon;
   title: string;
   description: string;
-  accent: string;
+  color: string;
 }
 
 const services: Service[] = [
   {
     icon: Code2,
     title: "Web Development",
-    description: "Powerful, fast-loading websites built with cutting-edge technologies.",
-    accent: "from-primary to-secondary",
+    description: "High-performance, scalable web applications built with modern frameworks for ultimate speed and reliability.",
+    color: "hsl(188 95% 50%)",
   },
   {
     icon: Layers,
-    title: "3D & Immersive Experiences",
-    description: "Captivating websites featuring subtle 3D elements that create unforgettable first impressions.",
-    accent: "from-secondary to-accent",
+    title: "3D & Immersive",
+    description: "Captivating WebGL experiences and subtle 3D elements that make your brand unforgettable in the digital space.",
+    color: "hsl(270 85% 60%)",
   },
   {
     icon: Palette,
     title: "Brand & UI Design",
-    description: "Elegant, trustworthy brand identities and interfaces that instantly build confidence.",
-    accent: "from-accent to-primary",
+    description: "Elegant, high-end visual identities and user interfaces that build instant trust and professional authority.",
+    color: "hsl(330 85% 60%)",
   },
   {
     icon: Zap,
     title: "Motion Design",
-    description: "Fluid animations and delightful micro-interactions that bring your website to life.",
-    accent: "from-primary to-accent",
+    description: "Fluid, intentional animations and micro-interactions that guide users and bring your story to life.",
+    color: "hsl(188 95% 50%)",
   },
   {
     icon: Rocket,
-    title: "Performance Optimization",
-    description: "Blazing-fast websites engineered for perfect scores and exceptional user experience.",
-    accent: "from-secondary to-primary",
+    title: "Performance",
+    description: "Meticulous optimization ensuring your site loads instantly, ranks higher, and provides a flawless user journey.",
+    color: "hsl(270 85% 60%)",
   },
 ];
+
+const ServiceCard = ({ service, index }: { service: Service; index: number }) => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, delay: index * 0.1 }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+      className="group relative h-full"
+    >
+      <div className="h-full p-8 rounded-[2rem] glass-premium transition-all duration-500 group-hover:bg-white/10">
+        <div 
+          className="w-14 h-14 rounded-2xl flex items-center justify-center mb-8 transition-transform duration-500 group-hover:scale-110"
+          style={{ backgroundColor: `${service.color}20`, color: service.color }}
+        >
+          <service.icon className="w-7 h-7" />
+        </div>
+        
+        <h3 className="font-display text-2xl font-bold mb-4 group-hover:text-primary transition-colors">
+          {service.title}
+        </h3>
+        
+        <p className="text-muted-foreground leading-relaxed">
+          {service.description}
+        </p>
+
+        <div 
+          className="absolute bottom-8 right-8 w-12 h-12 rounded-full border border-white/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        >
+          <Zap className="w-5 h-5 text-primary" />
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
 const Services = () => {
   return (
     <section id="services" className="relative py-32">
       <div className="container">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto max-w-2xl text-center"
-        >
-          <span className="inline-block rounded-full border border-border bg-card/50 px-3 py-1 text-xs uppercase tracking-[0.25em] text-muted-foreground">
-            What we do
-          </span>
-          <h2 className="mt-6 font-display text-4xl font-bold leading-tight sm:text-6xl">
-            Services Beyond <span className="text-gradient">the Horizon</span>
+        <div className="max-w-3xl mb-20">
+          <span className="text-primary font-display text-sm uppercase tracking-[0.3em] mb-6 block">Expertise</span>
+          <h2 className="font-display text-4xl md:text-6xl font-bold leading-tight">
+            Services Beyond <br />
+            <span className="text-gradient">the Horizon</span>
           </h2>
-        </motion.div>
+        </div>
 
-        <div className="mt-20 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, i) => {
-            const Icon = service.icon;
-            return (
-              <motion.div
-                key={service.title}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.7, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: -6 }}
-                className="group relative overflow-hidden rounded-3xl glass p-8 transition-shadow hover:shadow-glow-soft"
-              >
-                <div
-                  className={`absolute -top-20 -right-20 h-48 w-48 rounded-full bg-gradient-to-br ${service.accent} opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-30`}
-                />
-                <div className="relative">
-                  <div className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${service.accent} shadow-glow-soft`}>
-                    <Icon className="h-5 w-5 text-primary-foreground" />
-                  </div>
-                  <h3 className="mt-6 font-display text-2xl font-semibold">{service.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{service.description}</p>
-                </div>
-              </motion.div>
-            );
-          })}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {services.map((service, i) => (
+            <ServiceCard key={service.title} service={service} index={i} />
+          ))}
         </div>
       </div>
     </section>

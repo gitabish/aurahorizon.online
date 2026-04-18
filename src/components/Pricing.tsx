@@ -1,122 +1,116 @@
+"use client";
+
 import { motion } from "framer-motion";
-import { Check, Sparkles } from "lucide-react";
+import { Check, Sparkles, Zap } from "lucide-react";
 import MagneticButton from "./MagneticButton";
 
-interface Plan {
-  name: string;
-  price: string;
-  tagline: string;
-  features: string[];
-  popular?: boolean;
-}
-
-const plans: Plan[] = [
+const plans = [
   {
     name: "Basic",
     price: "₹5,999",
-    tagline: "Perfect starting point for small businesses and startups",
+    desc: "Essential digital presence for startups.",
     features: [
-      "5-page professional website",
-      "Fully mobile-friendly design",
-      "WhatsApp integration",
-      "1 year domain + hosting",
+      "5-Page Professional Site",
+      "Mobile-First Design",
+      "WhatsApp Integration",
+      "1 Year Domain & Hosting",
+      "Basic SEO Setup"
     ],
+    color: "hsl(188 95% 50%)"
   },
   {
     name: "Standard",
-    price: "₹14,999",
-    tagline: "Ideal for doctors, dentists and growing service businesses",
+    price: "₹11,999",
+    desc: "The gold standard for growing businesses.",
     features: [
       "Everything in Basic",
-      "Online appointment booking form",
-      "Beautiful photo gallery",
-      "Basic SEO to help you rank higher",
-      "Easy-to-update blog section",
+      "Online Booking System",
+      "Premium Photo Gallery",
+      "Advanced SEO Strategy",
+      "Blog & Content CMS",
+      "Priority Email Support"
     ],
     popular: true,
+    color: "hsl(270 85% 60%)"
   },
   {
     name: "Premium",
-    price: "₹25,999",
-    tagline: "Complete solution for ambitious businesses ready to scale",
+    price: "₹17,999",
+    desc: "Uncompromising quality for market leaders.",
     features: [
       "Everything in Standard",
-      "Advanced animations & 3D elements",
-      "Online payment options (if needed)",
-      "Priority support and ongoing maintenance",
-      "Superior speed and performance",
+      "Custom 3D Elements",
+      "E-commerce Integration",
+      "Performance Optimization",
+      "Monthly Maintenance",
+      "24/7 Priority Support"
     ],
-  },
+    color: "hsl(330 85% 60%)"
+  }
 ];
 
 const Pricing = () => {
   return (
     <section id="pricing" className="relative py-32">
-      <div className="absolute inset-0 grid-bg opacity-30" aria-hidden />
-      <div className="container relative">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto max-w-2xl text-center"
-        >
-          <span className="inline-block rounded-full border border-border bg-card/50 px-3 py-1 text-xs uppercase tracking-[0.25em] text-muted-foreground">
-            Pricing
-          </span>
-          <h2 className="mt-6 font-display text-4xl font-bold leading-tight sm:text-6xl">
-            Our <span className="text-gradient">Pricing Plans</span>
+      <div className="container">
+        <div className="text-center max-w-3xl mx-auto mb-20">
+          <span className="text-primary font-display text-sm uppercase tracking-[0.3em] mb-6 block">Investment</span>
+          <h2 className="font-display text-4xl md:text-6xl font-bold leading-tight mb-6">
+            Transparent <span className="text-gradient">Pricing</span>
           </h2>
-          <p className="mt-6 text-lg text-muted-foreground">
-            Transparent packages crafted to fit every stage of your business journey.
+          <p className="text-muted-foreground text-lg">
+            Premium digital experiences at prices that make sense for your growth.
           </p>
-        </motion.div>
+        </div>
 
-        <div className="mt-20 grid gap-6 lg:grid-cols-3">
+        <div className="grid lg:grid-cols-3 gap-8">
           {plans.map((plan, i) => (
             <motion.div
               key={plan.name}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.7, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ y: -8 }}
-              className={`relative flex flex-col overflow-hidden rounded-3xl glass p-8 ${
-                plan.popular ? "glow-border shadow-glow-primary lg:scale-[1.04]" : ""
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: i * 0.1 }}
+              className={`relative p-10 rounded-[2.5rem] glass-premium flex flex-col ${
+                plan.popular ? "border-primary/50 ring-1 ring-primary/20 scale-105 z-10" : ""
               }`}
             >
               {plan.popular && (
-                <div className="absolute right-6 top-6 inline-flex items-center gap-1.5 rounded-full bg-gradient-aurora px-3 py-1 text-xs font-semibold text-primary-foreground shadow-glow-soft">
-                  <Sparkles className="h-3 w-3" />
+                <div className="absolute -top-5 left-1/2 -translate-x-1/2 px-6 py-2 rounded-full bg-gradient-aurora text-white text-sm font-bold flex items-center gap-2 shadow-glow-primary">
+                  <Sparkles className="w-4 h-4" />
                   Most Popular
                 </div>
               )}
-              <h3 className="font-display text-2xl font-semibold">{plan.name}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{plan.tagline}</p>
-              <div className="mt-6 flex items-baseline gap-2">
-                <span className="font-display text-5xl font-bold text-gradient">{plan.price}</span>
+
+              <div className="mb-8">
+                <h3 className="font-display text-2xl font-bold mb-2">{plan.name}</h3>
+                <p className="text-muted-foreground text-sm">{plan.desc}</p>
               </div>
 
-              <ul className="mt-8 flex-1 space-y-3">
-                {plan.features.map((f) => (
-                  <li key={f} className="flex items-start gap-3 text-sm text-foreground/90">
-                    <span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary">
-                      <Check className="h-3 w-3" />
-                    </span>
-                    <span>{f}</span>
+              <div className="mb-10">
+                <div className="flex items-baseline gap-1">
+                  <span className="text-5xl font-display font-bold text-gradient">{plan.price}</span>
+                </div>
+              </div>
+
+              <ul className="space-y-5 mb-12 flex-1">
+                {plan.features.map((feature) => (
+                  <li key={feature} className="flex items-start gap-3 text-sm text-muted-foreground">
+                    <div className="mt-1 w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                      <Check className="w-3 h-3 text-primary" />
+                    </div>
+                    {feature}
                   </li>
                 ))}
               </ul>
 
-              <div className="mt-10">
-                <MagneticButton
-                  href="#contact"
-                  variant={plan.popular ? "primary" : "ghost"}
-                  className="w-full"
-                >
-                  Get Started
-                </MagneticButton>
-              </div>
+              <MagneticButton 
+                href="#contact" 
+                variant={plan.popular ? "primary" : "ghost"}
+                className="w-full h-14"
+              >
+                Get Started <Zap className="ml-2 w-4 h-4" />
+              </MagneticButton>
             </motion.div>
           ))}
         </div>
