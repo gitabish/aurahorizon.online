@@ -14,26 +14,33 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import CustomCursor from "@/components/CustomCursor";
+import Preloader from "@/components/Preloader";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const Index = () => {
   return (
-    <main id="top" className="relative min-h-screen overflow-x-hidden">
-      <div className="noise-overlay" />
-      <CustomCursor />
-      <Navigation />
-      <Hero />
-      <Marquee />
-      <About />
-      <Services />
-      <Industries />
-      <Projects />
-      <Process />
-      <Pricing />
-      <Feedback />
-      <Contact />
-      <Footer />
-      <WhatsAppButton />
-    </main>
+    <>
+      <Preloader />
+      <main id="top" className="relative min-h-screen overflow-x-hidden">
+        <div className="noise-overlay" />
+        <CustomCursor />
+        <SmoothScroll>
+          <Navigation />
+          <Hero />
+          <Marquee />
+          <About />
+          <Services />
+          <Industries />
+          <Projects />
+          <Process />
+          <Pricing />
+          <Feedback />
+          <Contact />
+          <Footer />
+        </SmoothScroll>
+        <WhatsAppButton />
+      </main>
+    </>
   );
 };
 
