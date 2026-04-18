@@ -76,7 +76,8 @@
   }
 
   .glass-premium {
-    @apply backdrop-blur-2xl border border-white/10 bg-white/5 shadow-premium;
+    @apply backdrop-blur-2xl border border-white/10 bg-white/5;
+    box-shadow: var(--shadow-premium);
   }
 
   .grid-bg-premium {
