@@ -35,39 +35,63 @@ const Hero = () => {
         <HeroScene className="h-full w-full mix-blend-screen opacity-60" />
       </motion.div>
       
+      {/* Cinematic Vignette */}
+      <div className="absolute inset-0 z-[5] pointer-events-none bg-[radial-gradient(circle_at_center,transparent_0%,rgba(10,10,12,0.4)_70%,rgba(10,10,12,0.8)_100%)]" />
+      
       {/* Premium Grid Overlay */}
       <div className="absolute inset-0 z-0 grid-bg-premium opacity-30 pointer-events-none" />
       
+      {/* Animated Aurora Beam */}
+      <motion.div 
+        animate={{ 
+          opacity: [0.1, 0.2, 0.1],
+          scale: [1, 1.1, 1],
+          rotate: [0, 5, 0]
+        }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[400px] bg-primary/10 blur-[120px] rounded-full z-0 pointer-events-none"
+      />
+
       {/* Content Container */}
       <div className="container relative z-20">
-        <div className="max-w-6xl mx-auto text-center">
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5 }}
+          className="max-w-6xl mx-auto text-center"
+        >
           
           {/* Announcement Pill */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full glass-premium text-sm font-medium text-primary mb-10 border-primary/20 shadow-glow-soft"
+            className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full glass-premium text-sm font-medium text-primary mb-10 border-primary/20 shadow-glow-soft group cursor-default"
           >
             <div className="flex -space-x-2">
-              <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30">
+              <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30 group-hover:scale-110 transition-transform">
                 <Sparkles className="w-3 h-3" />
               </div>
             </div>
             <span className="tracking-wide">Crafting digital experiences that drive real growth</span>
-            <Globe className="w-3.5 h-3.5 opacity-50" />
+            <Globe className="w-3.5 h-3.5 opacity-50 animate-spin-slow" />
           </motion.div>
 
-          {/* Main Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="font-display text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight leading-[1.05] mb-10"
+          {/* Main Headline with Floating Animation */}
+          <motion.div
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
           >
-            <span className="text-gradient-silver block mb-2">We turn bold business</span>
-            <span className="text-gradient">visions into realities.</span>
-          </motion.h1>
+            <motion.h1
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className="font-display text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight leading-[1.05] mb-10"
+            >
+              <span className="text-gradient-silver block mb-2">We turn bold business</span>
+              <span className="text-gradient">visions into realities.</span>
+            </motion.h1>
+          </motion.div>
 
           {/* Subheadline */}
           <motion.div
@@ -97,7 +121,7 @@ const Hero = () => {
               Explore Our Work
             </MagneticButton>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Cinematic Bottom Fade */}
