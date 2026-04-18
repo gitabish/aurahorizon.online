@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, useSpring } from "framer-motion";
 
 const CustomCursor = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [cursorState, setCursorState] = useState<"default" | "hover" | "view">("default");
+  const [cursorState, setCursorState] = useState<"default" | "hover" | "view" | "drag">("default");
 
   const cursorX = useSpring(0, { stiffness: 500, damping: 28 });
   const cursorY = useSpring(0, { stiffness: 500, damping: 28 });
@@ -20,6 +19,8 @@ const CustomCursor = () => {
       const target = e.target as HTMLElement;
       if (target.closest("#projects div")) {
         setCursorState("view");
+      } else if (target.closest(".cursor-grab")) {
+        setCursorState("drag");
       } else if (target.closest("a, button, input, textarea")) {
         setCursorState("hover");
       } else {
@@ -48,13 +49,13 @@ const CustomCursor = () => {
       }}
       className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[9999] mix-blend-difference backdrop-blur-sm border border-primary/30 hidden lg:flex items-center justify-center overflow-hidden"
     >
-      {cursorState === "view" && (
+      {(cursorState === "view" || cursorState === "drag") && (
         <motion.span 
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           className="text-[4px] font-bold uppercase tracking-tighter text-primary-glow"
         >
-          View
+          {cursorState}
         </motion.span>
       )}
     </motion.div>
