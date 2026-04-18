@@ -3,6 +3,7 @@
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
+import Stats from "@/components/Stats";
 import About from "@/components/About";
 import Services from "@/components/Services";
 import Industries from "@/components/Industries";
@@ -12,6 +13,7 @@ import Pricing from "@/components/Pricing";
 import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import Feedback from "@/components/Feedback";
+import CTA from "@/components/CTA";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -32,6 +34,7 @@ const Index = () => {
           <Navigation />
           <Hero />
           <Marquee />
+          <Stats />
           <About />
           <Services />
           <Industries />
@@ -41,6 +44,7 @@ const Index = () => {
           <Testimonials />
           <FAQ />
           <Feedback />
+          <CTA />
           <Contact />
           <Footer />
         </SmoothScroll>
