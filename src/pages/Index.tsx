@@ -2,6 +2,7 @@
 
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
+import Marquee from "@/components/Marquee";
 import About from "@/components/About";
 import Services from "@/components/Services";
 import Industries from "@/components/Industries";
@@ -21,6 +22,7 @@ const Index = () => {
       <CustomCursor />
       <Navigation />
       <Hero />
+      <Marquee />
       <About />
       <Services />
       <Industries />
