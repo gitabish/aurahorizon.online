@@ -1,150 +1,102 @@
+"use client";
+
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
 
-interface Project {
-  title: string;
-  category: string;
-  year: string;
-  description: string;
-  tags: string[];
-  gradient: string;
-}
-
-const projects: Project[] = [
+const projects = [
   {
-    title: "Lumen Studios",
-    category: "Brand site",
-    year: "2025",
-    description: "Cinematic portfolio for a creative studio with WebGL transitions between case studies.",
-    tags: ["Next.js", "WebGL", "GSAP"],
-    gradient: "from-primary/40 via-secondary/30 to-accent/40",
+    title: "Lumina Dental",
+    category: "Medical / Branding",
+    image: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=1200",
+    color: "from-cyan-500/20 to-blue-500/20"
   },
   {
-    title: "Orbit Finance",
-    category: "Fintech app",
-    year: "2025",
-    description: "Realtime trading dashboard with 3D market visualization and biometric onboarding.",
-    tags: ["React", "D3", "Three.js"],
-    gradient: "from-secondary/40 via-primary/30 to-secondary/40",
+    title: "The Roast Collective",
+    category: "Hospitality / E-commerce",
+    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=1200",
+    color: "from-orange-500/20 to-red-500/20"
   },
   {
-    title: "Nebula Commerce",
-    category: "E-commerce",
-    year: "2024",
-    description: "Headless storefront with shoppable 3D product configurator and AR try-on.",
-    tags: ["Shopify", "R3F", "Edge"],
-    gradient: "from-accent/40 via-secondary/30 to-primary/40",
+    title: "Velocity Moto",
+    category: "Automotive / Performance",
+    image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&q=80&w=1200",
+    color: "from-purple-500/20 to-pink-500/20"
   },
   {
-    title: "Pulse OS",
-    category: "SaaS platform",
-    year: "2024",
-    description: "AI-native operations platform with motion-led onboarding and command palette UX.",
-    tags: ["TypeScript", "Framer", "AI"],
-    gradient: "from-primary/40 via-accent/30 to-secondary/40",
-  },
+    title: "Zenith Spa",
+    category: "Wellness / Booking",
+    image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=1200",
+    color: "from-emerald-500/20 to-teal-500/20"
+  }
 ];
 
-const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
-  const ref = useRef<HTMLDivElement>(null);
+const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: number }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
+    target: containerRef,
+    offset: ["start end", "end start"]
   });
-  const y = useTransform(scrollYProgress, [0, 1], [60, -60]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [index % 2 ? -2 : 2, index % 2 ? 2 : -2]);
+
+  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
   return (
-    <motion.article
-      ref={ref}
-      style={{ y }}
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.8 }}
-      className="group relative"
+    <motion.div
+      ref={containerRef}
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, delay: index * 0.1 }}
+      className="group relative aspect-[16/10] rounded-[3rem] overflow-hidden glass-premium"
     >
-      <motion.div
-        style={{ rotate }}
-        whileHover={{ scale: 1.02 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="relative aspect-[16/11] overflow-hidden rounded-3xl glass"
-      >
-        <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-90`} />
-        <div className="absolute inset-0 grid-bg opacity-30" />
-
-        {/* Floating decorative orbs */}
-        <motion.div
-          animate={{ y: [0, -20, 0], x: [0, 10, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute right-12 top-12 h-32 w-32 rounded-full bg-primary/40 blur-3xl"
+      <motion.div style={{ y }} className="absolute inset-0">
+        <img 
+          src={project.image} 
+          alt={project.title}
+          className="w-full h-full object-cover scale-110 transition-transform duration-700 group-hover:scale-100"
         />
-        <motion.div
-          animate={{ y: [0, 20, 0], x: [0, -10, 0] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute left-16 bottom-16 h-40 w-40 rounded-full bg-secondary/40 blur-3xl"
-        />
-
-        {/* Project mark */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="font-display text-7xl font-bold tracking-tight text-foreground/10 sm:text-9xl">
-            0{index + 1}
-          </span>
-        </div>
-
-        <div className="absolute right-6 top-6 inline-flex h-12 w-12 items-center justify-center rounded-full bg-background/40 backdrop-blur-md transition-all duration-500 group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground">
-          <ArrowUpRight className="h-5 w-5" />
-        </div>
       </motion.div>
+      
+      <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-60 mix-blend-overlay`} />
+      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
 
-      <div className="mt-6 flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            <span>{project.category}</span>
-            <span className="h-px w-8 bg-border" />
-            <span>{project.year}</span>
-          </div>
-          <h3 className="mt-2 font-display text-2xl font-semibold sm:text-3xl">{project.title}</h3>
-          <p className="mt-2 max-w-md text-sm text-muted-foreground">{project.description}</p>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {project.tags.map((tag) => (
-            <span key={tag} className="rounded-full border border-border bg-card/50 px-3 py-1 text-xs text-muted-foreground">
-              {tag}
+      <div className="absolute inset-0 p-12 flex flex-col justify-end">
+        <div className="flex items-end justify-between">
+          <div>
+            <span className="text-primary font-display text-sm uppercase tracking-widest mb-2 block">
+              {project.category}
             </span>
-          ))}
+            <h3 className="font-display text-4xl md:text-5xl font-bold text-white">
+              {project.title}
+            </h3>
+          </div>
+          
+          <div className="w-16 h-16 rounded-full glass-premium flex items-center justify-center group-hover:bg-primary group-hover:text-background transition-all duration-500">
+            <ArrowUpRight className="w-8 h-8" />
+          </div>
         </div>
       </div>
-    </motion.article>
+    </motion.div>
   );
 };
 
 const Projects = () => {
   return (
-    <section id="projects" className="relative py-32">
+    <section id="projects" className="relative py-32 lg:py-48">
       <div className="container">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end"
-        >
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-24">
           <div className="max-w-2xl">
-            <span className="inline-block rounded-full border border-border bg-card/50 px-3 py-1 text-xs uppercase tracking-[0.25em] text-muted-foreground">
-              Selected work
-            </span>
-            <h2 className="mt-6 font-display text-4xl font-bold leading-tight sm:text-6xl">
-              Recent <span className="text-gradient">launches</span>
+            <span className="text-primary font-display text-sm uppercase tracking-[0.3em] mb-6 block">Selected Work</span>
+            <h2 className="font-display text-4xl md:text-6xl font-bold leading-tight">
+              Digital <span className="text-gradient">Masterpieces</span>
             </h2>
           </div>
-          <p className="max-w-md text-muted-foreground">
-            A glimpse into projects shipped with founders, agencies and brands across the globe.
+          <p className="text-muted-foreground text-lg max-w-md">
+            A collection of high-converting experiences crafted for businesses that refuse to be average.
           </p>
-        </motion.div>
+        </div>
 
-        <div className="mt-20 grid gap-16 md:grid-cols-2">
+        <div className="grid gap-12">
           {projects.map((project, i) => (
             <ProjectCard key={project.title} project={project} index={i} />
           ))}
