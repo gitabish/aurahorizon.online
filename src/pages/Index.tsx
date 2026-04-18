@@ -10,6 +10,8 @@ import Industries from "@/components/Industries";
 import Projects from "@/components/Projects";
 import Process from "@/components/Process";
 import Team from "@/components/Team";
+import TechStack from "@/components/TechStack";
+import ProjectPlanner from "@/components/ProjectPlanner";
 import Pricing from "@/components/Pricing";
 import Testimonials from "@/components/Testimonials";
 import Blog from "@/components/Blog";
@@ -48,6 +50,8 @@ const Index = () => {
           <Reveal width="100%"><Projects /></Reveal>
           <Reveal width="100%"><Process /></Reveal>
           <Reveal width="100%"><Team /></Reveal>
+          <Reveal width="100%"><TechStack /></Reveal>
+          <Reveal width="100%"><ProjectPlanner /></Reveal>
           <Reveal width="100%"><Pricing /></Reveal>
           <Reveal width="100%"><Testimonials /></Reveal>
           <Reveal width="100%"><Blog /></Reveal>
