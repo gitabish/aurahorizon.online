@@ -5,7 +5,7 @@ import { motion, useSpring } from "framer-motion";
 
 const CustomCursor = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
+  const [cursorState, setCursorState] = useState<"default" | "hover" | "view">("default");
 
   const cursorX = useSpring(0, { stiffness: 500, damping: 28 });
   const cursorY = useSpring(0, { stiffness: 500, damping: 28 });
@@ -18,7 +18,13 @@ const CustomCursor = () => {
 
     const handleHover = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      setIsHovering(!!target.closest("a, button, input, textarea"));
+      if (target.closest("#projects div")) {
+        setCursorState("view");
+      } else if (target.closest("a, button, input, textarea")) {
+        setCursorState("hover");
+      } else {
+        setCursorState("default");
+      }
     };
 
     window.addEventListener("mousemove", moveMouse);
@@ -37,11 +43,21 @@ const CustomCursor = () => {
         translateY: cursorY,
       }}
       animate={{
-        scale: isHovering ? 2.5 : 1,
-        backgroundColor: isHovering ? "rgba(34, 211, 238, 0.2)" : "rgba(34, 211, 238, 0.5)",
+        scale: cursorState === "default" ? 1 : cursorState === "hover" ? 2.5 : 3.5,
+        backgroundColor: cursorState === "default" ? "rgba(34, 211, 238, 0.5)" : "rgba(34, 211, 238, 0.2)",
       }}
-      className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[9999] mix-blend-difference backdrop-blur-sm border border-primary/30 hidden lg:block"
-    />
+      className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[9999] mix-blend-difference backdrop-blur-sm border border-primary/30 hidden lg:flex items-center justify-center overflow-hidden"
+    >
+      {cursorState === "view" && (
+        <motion.span 
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="text-[4px] font-bold uppercase tracking-tighter text-primary-glow"
+        >
+          View
+        </motion.span>
+      )}
+    </motion.div>
   );
 };
 

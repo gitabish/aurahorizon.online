@@ -21,6 +21,7 @@ import CustomCursor from "@/components/CustomCursor";
 import Preloader from "@/components/Preloader";
 import SmoothScroll from "@/components/SmoothScroll";
 import ScrollProgress from "@/components/ScrollProgress";
+import Reveal from "@/components/Reveal";
 
 const Index = () => {
   return (
@@ -33,19 +34,19 @@ const Index = () => {
         <SmoothScroll>
           <Navigation />
           <Hero />
-          <Marquee />
-          <Stats />
-          <About />
-          <Services />
-          <Industries />
-          <Projects />
-          <Process />
-          <Pricing />
-          <Testimonials />
-          <FAQ />
-          <Feedback />
-          <CTA />
-          <Contact />
+          <Reveal width="100%"><Marquee /></Reveal>
+          <Reveal width="100%"><Stats /></Reveal>
+          <Reveal width="100%"><About /></Reveal>
+          <Reveal width="100%"><Services /></Reveal>
+          <Reveal width="100%"><Industries /></Reveal>
+          <Reveal width="100%"><Projects /></Reveal>
+          <Reveal width="100%"><Process /></Reveal>
+          <Reveal width="100%"><Pricing /></Reveal>
+          <Reveal width="100%"><Testimonials /></Reveal>
+          <Reveal width="100%"><FAQ /></Reveal>
+          <Reveal width="100%"><Feedback /></Reveal>
+          <Reveal width="100%"><CTA /></Reveal>
+          <Reveal width="100%"><Contact /></Reveal>
           <Footer />
         </SmoothScroll>
         <WhatsAppButton />

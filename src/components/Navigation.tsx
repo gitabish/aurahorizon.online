@@ -2,7 +2,8 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import Magnetic from "./Magnetic";
 
 const links = [
   { label: "About", href: "#about" },
@@ -40,39 +41,45 @@ const Navigation = () => {
       className="fixed top-0 left-0 right-0 z-[100] transition-all duration-300"
     >
       <nav className="container h-20 flex items-center justify-between">
-        <a href="#top" className="flex items-center gap-3 group">
-          <div className="relative w-10 h-10">
-            <div className="absolute inset-0 bg-gradient-aurora rounded-xl blur-md opacity-50 group-hover:opacity-100 transition-opacity" />
-            <div className="relative w-full h-full bg-background border border-white/10 rounded-xl flex items-center justify-center overflow-hidden">
-              <div className="w-4 h-4 bg-primary rounded-full animate-pulse" />
+        <Magnetic strength={0.2}>
+          <a href="#top" className="flex items-center gap-3 group">
+            <div className="relative w-10 h-10">
+              <div className="absolute inset-0 bg-gradient-aurora rounded-xl blur-md opacity-50 group-hover:opacity-100 transition-opacity" />
+              <div className="relative w-full h-full bg-background border border-white/10 rounded-xl flex items-center justify-center overflow-hidden">
+                <div className="w-4 h-4 bg-primary rounded-full animate-pulse" />
+              </div>
             </div>
-          </div>
-          <span className="font-display text-xl font-bold tracking-tight">
-            Aura<span className="text-primary">horizon</span>
-          </span>
-        </a>
+            <span className="font-display text-xl font-bold tracking-tight">
+              Aura<span className="text-primary">horizon</span>
+            </span>
+          </a>
+        </Magnetic>
 
         {/* Desktop Nav */}
-        <ul className="hidden lg:flex items-center gap-8">
+        <ul className="hidden lg:flex items-center gap-10">
           {links.map((link) => (
             <li key={link.href}>
-              <a 
-                href={link.href}
-                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors uppercase tracking-widest"
-              >
-                {link.label}
-              </a>
+              <Magnetic strength={0.3}>
+                <a 
+                  href={link.href}
+                  className="text-xs font-medium text-muted-foreground hover:text-primary transition-colors uppercase tracking-[0.2em]"
+                >
+                  {link.label}
+                </a>
+              </Magnetic>
             </li>
           ))}
         </ul>
 
         <div className="hidden lg:block">
-          <a 
-            href="#contact"
-            className="px-6 py-2.5 rounded-full glass-premium text-sm font-bold hover:bg-primary hover:text-background transition-all duration-300"
-          >
-            Get Started
-          </a>
+          <Magnetic strength={0.2}>
+            <a 
+              href="#contact"
+              className="px-8 py-3 rounded-full glass-premium text-xs font-bold uppercase tracking-widest hover:bg-primary hover:text-background transition-all duration-500"
+            >
+              Get Started
+            </a>
+          </Magnetic>
         </div>
 
         {/* Mobile Toggle */}
