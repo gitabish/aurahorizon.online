@@ -28,20 +28,23 @@ const About = () => {
             </div>
             
             <h2 className="font-display text-5xl md:text-7xl font-bold leading-[1.1] mb-10">
-              Transcending the <br />
-              <span className="text-gradient">Digital Ordinary.</span>
+              Your Story Deserves <br />
+              <span className="text-gradient">More Than a Pin.</span>
             </h2>
             
             <div className="space-y-8 text-lg md:text-xl text-muted-foreground leading-relaxed font-light">
               <p>
-                In a world of template-driven designs and generic digital footprints, we choose a different path. Most businesses are trapped in a sea of identical profiles—we're here to build your lighthouse.
+                In a world of template-driven designs and generic digital footprints, most businesses are reduced to a mere pin on a map—a boring Google listing lost in a sea of identical profiles.
               </p>
               <p>
-                Aurahorizon was founded on the belief that every service business, from the local cafe to the specialized medical clinic, deserves a digital presence that reflects the <span className="text-foreground font-medium">soul of their craft.</span>
+                We believe your passion, your craft, and your business deserve a <span className="text-foreground font-medium">digital lighthouse.</span> A presence that doesn't just exist, but commands attention and builds instant authority.
+              </p>
+              <p>
+                Aurahorizon was founded by a team of visionaries who grew tired of seeing exceptional service businesses hidden behind mediocre websites. We're here to break you free from the ordinary.
               </p>
               <div className="pt-6">
                 <p className="text-foreground font-medium border-l-2 border-primary pl-8 italic">
-                  "We don't just build websites; we architect digital growth engines that convert curiosity into long-term loyalty."
+                  "We don't just build websites; we architect digital growth engines that turn curious visitors into lifelong customers."
                 </p>
               </div>
             </div>
@@ -68,10 +71,10 @@ const About = () => {
                   transition={{ delay: 0.5 }}
                   className="text-8xl md:text-[10rem] font-display font-bold text-gradient leading-none mb-4"
                 >
-                  12+
+                  150+
                 </motion.div>
                 <div className="text-sm md:text-base font-display text-muted-foreground uppercase tracking-[0.4em] font-bold">
-                  Years of Digital Mastery
+                  Digital Horizons Expanded
                 </div>
               </div>
               
